@@ -4,20 +4,18 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-import { Chat } from './src/screens/Chat';
-
+import { Chat } from '../screens/Chat';
 
 // Importing our screens
 
 
 const Stack = createStackNavigator();
 
-export default function App(){
+export default function Routes(){
     return(
         <NavigationContainer>
             <Stack.Navigator>
-      
+    
                 <Stack.Screen name="Chat" component={Chat}/>
             </Stack.Navigator>
         </NavigationContainer>

@@ -1,5 +1,6 @@
 {
   "expo": {
+    "plugins": ["@config-plugins/react-native-webrtc"],
     "name": "chatTeste",
     "slug": "chatTeste",
     "version": "1.0.0",
@@ -29,5 +30,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+     
   }
 }
