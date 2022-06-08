@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import io, { Socket } from "socket.io-client";
+import io, { Socket } from "socket.io-client/dist/socket.io";
 
 
 
@@ -11,11 +11,19 @@ export function Chat(){
 
     
     useEffect(()=>{
-      if(!socketRef)
+      if(socketRef) return
       try {
-        setSocketRef(io("http://localhost:3000", {
-          transports:['websocket'],
-          rejectUnauthorized:null
+        setSocketRef(io("http://192.168.1.84:3001", 
+        {
+          transports: ['websocket'],
+          withCredentials:true,
+          transportOptions: {
+            polling: {
+              extraHeaders: {
+                'my-custom-header': 'abcd'
+              }
+            }
+          }
         }))
 
         console.log("socket", socketRef);
@@ -29,12 +37,12 @@ export function Chat(){
       if (!socketRef) return
       
       console.log(socketRef.connected);
-      socketRef.on("chat message", msg => {
-        setMessages(value=>[...value, msg]) 
-      })
+      socketRef.on("message", msg => {
+        setMessages(value=>[...value, msg.Conteudo])
+      });
 
-      socketRef.on('emit oi', msg => {
-        setMessages(value=>[...value, msg]) 
+      socketRef.on('connect', msg => {
+        socketRef.emit('app connect', "usuario connctado")
       }
       );
 
@@ -49,7 +57,7 @@ export function Chat(){
     },[chatMessages])
 
     function submitChatMessage() {
-        socketRef.emit('chat message', chatMessage);
+        socketRef.emit('message', chatMessage);
         setChatMessage('');
       }
 

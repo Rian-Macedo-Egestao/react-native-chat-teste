@@ -17,7 +17,6 @@ export default function App(){
     return(
         <NavigationContainer>
             <Stack.Navigator>
-      
                 <Stack.Screen name="Chat" component={Chat}/>
             </Stack.Navigator>
         </NavigationContainer>
